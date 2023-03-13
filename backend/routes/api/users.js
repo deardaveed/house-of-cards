@@ -10,6 +10,12 @@ const { User } = require('../../db/models');
 const router = express.Router();
 
 const validateSignup = [
+  check('firstName')
+    .exists({ checkFalsy: true })
+    .withMessage('Please enter your first name.'),
+  check('lastName')
+    .exists({ checkFalsy: true })
+    .withMessage('Please enter your last name'),
   check('email')
     .exists({ checkFalsy: true })
     .isEmail()
@@ -34,8 +40,8 @@ router.post(
   '/',
   validateSignup,
   async (req, res) => {
-    const { email, password, username } = req.body;
-    const user = await User.signup({ email, username, password });
+    const { firstName, lastName, email, password, username } = req.body;
+    const user = await User.signup({ firstName, lastName, email, username, password });
 
     await setTokenCookie(res, user);
 
@@ -46,3 +52,19 @@ router.post(
 );
 
 module.exports = router;
+
+
+fetch('/api/users', {
+  method: 'POST',
+  headers: {
+    "Content-Type": "application/json",
+    "XSRF-Token": "GuaaUVCO-d8oHJuvS9hqWp4mzDKthM-gapnk"
+  },
+  body: JSON.stringify({
+    email: 'erman',
+    username: 'dey',
+    password: 'password',
+    firstName: '',
+    lastName: ''
+  })
+}).then(res => res.json()).then(data => console.log(data));
