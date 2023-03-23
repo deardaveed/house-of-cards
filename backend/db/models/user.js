@@ -46,6 +46,8 @@ module.exports = (sequelize, DataTypes) => {
 
     static associate(models) {
       // define association here
+      User.hasMany(models.Review, { foreignKey: 'userId', onDelete: 'CASCADE', hooks: true });
+      User.hasMany(models.PokerRoom, { foreignKey: 'userId', onDelete: 'CASCADE', hooks: true });
     }
   };
 
@@ -56,6 +58,12 @@ module.exports = (sequelize, DataTypes) => {
       },
       lastName: {
         type: DataTypes.STRING,
+      },
+      bio: {
+        type: DataTypes.TEXT,
+      },
+      profilePicLink: {
+        type: DataTypes.TEXT,
       },
       email: {
         type: DataTypes.STRING,
