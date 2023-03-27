@@ -33,25 +33,27 @@ module.exports = {
       zip: {
         type: Sequelize.STRING(30)
       },
-      games: {
+      phone: {
         type: Sequelize.STRING(30)
       },
-      rake: {
+      website: {
         type: Sequelize.STRING(30)
       },
-      comps: {
+      image: {
         type: Sequelize.STRING(30)
       },
-      notes: {
+      description: {
         type: Sequelize.TEXT
       },
       createdAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
+        defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
       },
       updatedAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
+        defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
       }
     });
   },
