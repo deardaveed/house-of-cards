@@ -24,7 +24,7 @@ module.exports = {
       {
         userId: 1,
         name: 'Oaks Card Club',
-        address: '4097 ',
+        address: '4097 San Pablo Ave',
         city: 'Emeryville',
         state: 'CA',
         zip: '94608',
