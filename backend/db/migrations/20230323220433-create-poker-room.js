@@ -30,16 +30,16 @@ module.exports = {
         type: Sequelize.TEXT
       },
       city: {
-        type: Sequelize.STRING(30)
+        type: Sequelize.TEXT
       },
       state: {
-        type: Sequelize.STRING(30)
+        type: Sequelize.TEXT
       },
       zip: {
-        type: Sequelize.STRING(30)
+        type: Sequelize.INTEGER
       },
       phone: {
-        type: Sequelize.STRING(30)
+        type: Sequelize.TEXT
       },
       website: {
         type: Sequelize.TEXT
