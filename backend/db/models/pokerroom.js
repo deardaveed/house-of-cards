@@ -34,16 +34,16 @@ module.exports = (sequelize, DataTypes) => {
       zip: {
         type: DataTypes.STRING,
       },
-      games: {
+      phone: {
         type: DataTypes.STRING,
       },
-      rake: {
+      website: {
         type: DataTypes.STRING,
       },
-      comps: {
+      image: {
         type: DataTypes.STRING,
       },
-      notes: {
+      description: {
         type: DataTypes.STRING,
       }
     },
