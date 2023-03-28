@@ -42,10 +42,10 @@ module.exports = {
         type: Sequelize.STRING(30)
       },
       website: {
-        type: Sequelize.STRING(30)
+        type: Sequelize.TEXT
       },
       image: {
-        type: Sequelize.STRING(30)
+        type: Sequelize.TEXT
       },
       description: {
         type: Sequelize.TEXT
