@@ -56,4 +56,26 @@ router.get('/:id', async (req, res) => {
   return res.json(pokerRoom);
 });
 
+// Create a poker room
+router.post('/', validatePokerRoom, async (req, res) => {
+  const { name, address, city, state, zip, phone, website, image, description } = req.body;
+  const pokerRoom = await PokerRoom.create({ name, address, city, state, zip, phone, website, image, description });
+  return res.json(pokerRoom);
+});
+
+// Update a poker room
+router.put('/:id', validatePokerRoom, async (req, res) => {
+  const { name, address, city, state, zip, phone, website, image, description } = req.body;
+  const pokerRoom = await PokerRoom.findByPk(req.params.id);
+  await pokerRoom.update({ name, address, city, state, zip, phone, website, image, description });
+  return res.json(pokerRoom);
+});
+
+// Delete a poker room
+router.delete('/:id', async (req, res) => {
+  const pokerRoom = await PokerRoom.findByPk(req.params.id);
+  await pokerRoom.destroy();
+  return res.json(pokerRoom);
+});
+
 module.exports = router;
