@@ -24,22 +24,22 @@ module.exports = {
         onDelete: 'CASCADE'
       },
       name: {
-        type: Sequelize.TEXT
+        type: Sequelize.STRING(50)
       },
       address: {
-        type: Sequelize.TEXT
+        type: Sequelize.STRING(50)
       },
       city: {
-        type: Sequelize.TEXT
+        type: Sequelize.STRING(50)
       },
       state: {
-        type: Sequelize.TEXT
+        type: Sequelize.STRING(50)
       },
       zip: {
         type: Sequelize.INTEGER
       },
       phone: {
-        type: Sequelize.TEXT
+        type: Sequelize.STRING(30)
       },
       website: {
         type: Sequelize.TEXT

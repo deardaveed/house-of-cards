@@ -18,22 +18,22 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.INTEGER,
       },
       name: {
-        type: DataTypes.TEXT,
+        type: DataTypes.STRING,
       },
       address: {
-        type: DataTypes.TEXT,
+        type: DataTypes.STRING,
       },
       city: {
-        type: DataTypes.TEXT,
+        type: DataTypes.STRING,
       },
       state: {
-        type: DataTypes.TEXT,
+        type: DataTypes.STRING,
       },
       zip: {
         type: DataTypes.INTEGER,
       },
       phone: {
-        type: DataTypes.TEXT,
+        type: DataTypes.STRING,
       },
       website: {
         type: DataTypes.TEXT,
