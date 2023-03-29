@@ -5,7 +5,7 @@ const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
 
 const { setTokenCookie, restoreUser } = require('../../utils/auth');
-const { Review } = require('../../db/models'); // do I need this? or include the review model instead?
+const { Review } = require('../../db/models');
 
 const router = express.Router();
 
@@ -25,6 +25,28 @@ router.get('/', async (req, res) => {
 // Get a single review
 router.get('/:id', async (req, res) => {
   const review = await Review.findByPk(req.params.id);
+  return res.json(review);
+});
+
+// Create a review
+router.post('/', validateReview, async (req, res) => {
+  const { userId, content, pokerRoomId } = req.body;
+  const review = await Review.create({ userId, content, pokerRoomId });
+  return res.json(review);
+});
+
+// Update a review
+router.put('/:id', validateReview, async (req, res) => {
+  const { userId, content, pokerRoomId } = req.body;
+  const review = await Review.findByPk(req.params.id);
+  await review.update({ userId, content, pokerRoomId });
+  return res.json(review);
+});
+
+// Delete a review
+router.delete('/:id', async (req, res) => {
+  const review = await Review.findByPk(req.params.id);
+  await review.destroy();
   return res.json(review);
 });
 

@@ -1,5 +1,4 @@
 // backend/routes/api/pokerrooms.js
-
 const express = require('express');
 
 const { check } = require('express-validator');
@@ -71,7 +70,6 @@ router.put('/:id', validatePokerRoom, async (req, res) => {
   await pokerRoom.update({ userId, name, address, city, state, zip, phone, website, image, description });
   return res.json(pokerRoom);
 });
-
 
 // Delete a poker room
 router.delete('/:id', async (req, res) => {
