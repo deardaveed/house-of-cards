@@ -10,6 +10,7 @@ const { PokerRoom } = require('../../db/models');
 
 const router = express.Router();
 
+
 const validatePokerRoom = [
   check('name')
     .exists({ checkFalsy: true })
@@ -58,18 +59,19 @@ router.get('/:id', async (req, res) => {
 
 // Create a poker room
 router.post('/', validatePokerRoom, async (req, res) => {
-  const { name, address, city, state, zip, phone, website, image, description } = req.body;
-  const pokerRoom = await PokerRoom.create({ name, address, city, state, zip, phone, website, image, description });
+  const { id, userId , name, address, city, state, zip, phone, website, image, description } = req.body;
+  const pokerRoom = await PokerRoom.create({ userId, name, address, city, state, zip, phone, website, image, description });
   return res.json(pokerRoom);
 });
 
 // Update a poker room
 router.put('/:id', validatePokerRoom, async (req, res) => {
-  const { name, address, city, state, zip, phone, website, image, description } = req.body;
+  const { userId, name, address, city, state, zip, phone, website, image, description } = req.body;
   const pokerRoom = await PokerRoom.findByPk(req.params.id);
-  await pokerRoom.update({ name, address, city, state, zip, phone, website, image, description });
+  await pokerRoom.update({ userId, name, address, city, state, zip, phone, website, image, description });
   return res.json(pokerRoom);
 });
+
 
 // Delete a poker room
 router.delete('/:id', async (req, res) => {
