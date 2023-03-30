@@ -1,4 +1,4 @@
-// frontend/src/store/session.js
+// frontend/src/store/pokerroom.js
 import { csrfFetch } from "./csrf";
 
 // setup constants for action types
