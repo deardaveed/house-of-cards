@@ -1,58 +1,53 @@
 // frontend/src/store/session.js
 import { csrfFetch } from "./csrf";
 
-// setup redux store and reducer for pokerroom
-
 // setup constants for action types
-const GET_POKERROOM = "pokerRoom/getPokerRoom";
+const GET_A_POKERROOM = "pokerRoom/getAPokerRoom";
+const GET_ALL_POKERROOMS = "pokerRoom/getAllPokerRooms";
 const ADD_POKERROOM = "pokerRoom/addPokerRoom";
 const UPDATE_POKERROOM = "pokerRoom/updatePokerRoom";
 const REMOVE_POKERROOM = "pokerRoom/removePokerRoom";
 
-// setup action functions with payloads
-const getPokerRoom = (pokerRoom) => {
-  return {
-    type: GET_POKERROOM,
-    payload: pokerRoom,
-  };
-};
+// setup action creator functions
+const getAPokerRoom = (pokerRoom) => ({
+  type: GET_A_POKERROOM,
+  payload: pokerRoom,
+});
 
-const addPokerRoom = (pokerRoom) => {
-  return {
-    type: ADD_POKERROOM,
-    payload: pokerRoom,
-  };
-};
+const getAllPokerRooms = (pokerRooms) => ({
+  type: GET_ALL_POKERROOMS,
+  payload: pokerRooms,
+});
 
-const updatePokerRoom = (pokerRoom) => {
-  return {
-    type: UPDATE_POKERROOM,
-    payload: pokerRoom,
-  };
-};
+const addPokerRoom = (pokerRoom) => ({
+  type: ADD_POKERROOM,
+  payload: pokerRoom,
+});
 
-const removePokerRoom = (pokerRoomId) => {
-  return {
-    type: REMOVE_POKERROOM,
-    payload: pokerRoomId,
-  };
-};
+const updatePokerRoom = (pokerRoom) => ({
+  type: UPDATE_POKERROOM,
+  payload: pokerRoom,
+});
 
-// setup thunk action creators
-export const fetchPokerRoom = (pokerRoomId) => async (dispatch) => {
+const removePokerRoom = (pokerRoomId) => ({
+  type: REMOVE_POKERROOM,
+  payload: pokerRoomId,
+});
+
+// setup thunks
+export const fetchAPokerRoom = (pokerRoomId) => async (dispatch) => {
   const response = await csrfFetch(`/api/pokerrooms/${pokerRoomId}`);
   const data = await response.json();
-  dispatch(getPokerRoom(data.pokerRoom));
+  dispatch(getAPokerRoom(data.pokerRoom));
   return response;
 };
 
-// need a separate action creator for get all pokerrooms??
-// export const fetchPokerRooms = () => async (dispatch) => {
-//   const response = await csrfFetch("/api/pokerrooms");
-//   const data = await response.json();
-//   dispatch(getPokerRooms(data.pokerRooms));
-//   return response;
-// };
+export const fetchAllPokerRooms = () => async (dispatch) => {
+  const response = await csrfFetch("/api/pokerrooms");
+  const data = await response.json();
+  dispatch(getAllPokerRooms(data.pokerRooms));
+  return response;
+};
 
 export const createPokerRoom = (pokerRoom) => async (dispatch) => {
   const response = await csrfFetch("/api/pokerrooms", {
@@ -64,7 +59,7 @@ export const createPokerRoom = (pokerRoom) => async (dispatch) => {
   return response;
 };
 
-export const updatePokerRoomThunk = (pokerRoom) => async (dispatch) => {
+export const editPokerRoom = (pokerRoom) => async (dispatch) => {
   const response = await csrfFetch(`/api/pokerrooms/${pokerRoom.id}`, {
     method: "PUT",
     body: JSON.stringify(pokerRoom),
@@ -86,22 +81,21 @@ export const deletePokerRoom = (pokerRoomId) => async (dispatch) => {
 const initialState = {};
 
 const pokerRoomReducer = (state = initialState, action) => {
-  let newState;
   switch (action.type) {
-    case GET_POKERROOM:
-      newState = Object.assign({}, state);
-      newState[action.payload.id] = action.payload;
-      return newState;
+    case GET_A_POKERROOM:
+      return { ...state, [action.payload.id]: action.payload };
+    case GET_ALL_POKERROOMS:
+      const allPokerRooms = {};
+      action.payload.forEach((pokerRoom) => {
+        allPokerRooms[pokerRoom.id] = pokerRoom;
+      });
+      return { ...state, ...allPokerRooms };
     case ADD_POKERROOM:
-      newState = Object.assign({}, state);
-      newState[action.payload.id] = action.payload;
-      return newState;
+      return { ...state, [action.payload.id]: action.payload };
     case UPDATE_POKERROOM:
-      newState = Object.assign({}, state);
-      newState[action.payload.id] = action.payload;
-      return newState;
+      return { ...state, [action.payload.id]: action.payload };
     case REMOVE_POKERROOM:
-      newState = Object.assign({}, state);
+      const newState = { ...state };
       delete newState[action.payload];
       return newState;
     default:
