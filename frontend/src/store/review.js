@@ -38,14 +38,14 @@ const removeReview = (reviewId) => ({
 export const fetchAllReviews = () => async (dispatch) => {
   const response = await csrfFetch("/api/reviews");
   const data = await response.json();
-  dispatch(getAllReviews(data.reviews));
+  dispatch(getAllReviews(data));
   return response;
 }
 
 export const fetchAReview = (reviewId) => async (dispatch) => {
   const response = await csrfFetch(`/api/reviews/${reviewId}`);
   const data = await response.json();
-  dispatch(getAReview(data.review));
+  dispatch(getAReview(data));
   return response;
 }
 
@@ -55,21 +55,21 @@ export const createReview = (review) => async (dispatch) => {
     body: JSON.stringify(review),
   });
   const data = await response.json();
-  dispatch(addReview(data.review));
+  dispatch(addReview(data));
   return response;
 }
 
-export const updateAReview = (review) => async (dispatch) => {
+export const editReview = (review) => async (dispatch) => {
   const response = await csrfFetch(`/api/reviews/${review.id}`, {
     method: "PUT",
     body: JSON.stringify(review),
   });
   const data = await response.json();
-  dispatch(updateReview(data.review));
+  dispatch(updateReview(data));
   return response;
 }
 
-export const deleteAReview = (reviewId) => async (dispatch) => {
+export const deleteReview = (reviewId) => async (dispatch) => {
   const response = await csrfFetch(`/api/reviews/${reviewId}`, {
     method: "DELETE",
   });
