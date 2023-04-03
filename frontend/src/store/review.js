@@ -2,21 +2,21 @@
 import { csrfFetch } from './csrf';
 
 // setup constants for action types
-const GET_A_REVIEW = "review/getAReview";
 const GET_ALL_REVIEWS = "review/getAllReviews";
+const GET_A_REVIEW = "review/getAReview";
 const ADD_REVIEW = "review/addReview";
 const UPDATE_REVIEW = "review/updateReview";
 const REMOVE_REVIEW = "review/removeReview";
 
 // setup action creator functions
-const getAReview = (review) => ({
-  type: GET_A_REVIEW,
-  payload: review,
-});
-
 const getAllReviews = (reviews) => ({
   type: GET_ALL_REVIEWS,
   payload: reviews,
+});
+
+const getAReview = (review) => ({
+  type: GET_A_REVIEW,
+  payload: review,
 });
 
 const addReview = (review) => ({
@@ -35,17 +35,17 @@ const removeReview = (reviewId) => ({
 });
 
 // setup thunks
-export const fetchAReview = (reviewId) => async (dispatch) => {
-  const response = await csrfFetch(`/api/reviews/${reviewId}`);
-  const data = await response.json();
-  dispatch(getAReview(data.review));
-  return response;
-}
-
 export const fetchAllReviews = () => async (dispatch) => {
   const response = await csrfFetch("/api/reviews");
   const data = await response.json();
   dispatch(getAllReviews(data.reviews));
+  return response;
+}
+
+export const fetchAReview = (reviewId) => async (dispatch) => {
+  const response = await csrfFetch(`/api/reviews/${reviewId}`);
+  const data = await response.json();
+  dispatch(getAReview(data.review));
   return response;
 }
 
