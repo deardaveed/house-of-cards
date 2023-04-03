@@ -82,14 +82,15 @@ const initialState = {};
 
 const reviewReducer = (state = initialState, action) => {
   switch (action.type) {
-    case GET_A_REVIEW:
-      return { ...state, [action.payload.id]: action.payload };
     case GET_ALL_REVIEWS:
       const allReviews = {};
       action.payload.forEach((review) => {
         allReviews[review.id] = review;
       });
       return { ...state, ...allReviews };
+    case GET_A_REVIEW:
+      return { ...state, [action.payload.id]: action.payload };
+    console.log("***newState before ****", state);
     case ADD_REVIEW:
       return { ...state, [action.payload.id]: action.payload };
     case UPDATE_REVIEW:
